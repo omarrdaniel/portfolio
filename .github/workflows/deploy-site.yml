@@ -1,0 +1,76 @@
+name: Deploy site
+
+# Independent from deploy-infra.yml. Builds and ships the static site to
+# Cloudflare Pages on every push to main — it does NOT wait for or depend
+# on a terraform apply, because the Pages project itself is only created
+# once; every deploy after that is just "upload new static files" and
+# doesn't touch DNS, WAF, or any other Terraform-managed resource.
+#
+# Uses the `production` GitHub Environment — deliberately lighter-gated
+# than `infra` (see deploy-infra.yml), since Cloudflare Pages deploys are
+# atomic and instantly revertible from the dashboard if something's wrong.
+
+on:
+  workflow_run:
+    workflows: ["CI — Build & DevSecOps checks"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy-site:
+    name: Build & deploy to Cloudflare Pages
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: omar-portfolio
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  post-deploy-checks:
+    name: Post-deploy DAST & header checks
+    needs: deploy-site
+    runs-on: ubuntu-latest
+    steps:
+      - name: OWASP ZAP baseline scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'https://${{ vars.SITE_DOMAIN }}'
+          fail_action: false # start non-blocking; tighten once the baseline is triaged once
+
+      - name: Verify security headers
+        run: |
+          set -e
+          URL="https://${{ vars.SITE_DOMAIN }}"
+          HEADERS=$(curl -sI "$URL")
+          echo "$HEADERS"
+
+          check() {
+            echo "$HEADERS" | grep -qi "$1" || { echo "::error::Missing header: $1"; exit 1; }
+          }
+
+          check "strict-transport-security"
+          check "x-content-type-options"
+          check "x-frame-options"
+          check "content-security-policy"

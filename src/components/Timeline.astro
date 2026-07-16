@@ -1,0 +1,50 @@
+---
+const roles = [
+  {
+    period: 'Jul 2024 — Present',
+    title: 'Cloud Network & Security Consultant',
+    org: 'Communication Valley Reply',
+    points: [
+      'Primary technical point of contact for a portfolio of enterprise clients',
+      'Direct vendor collaboration with F5, Cloudflare, and Akamai on escalations and joint solution design',
+      'Pre-sales: technical demos, PoC design, RFP/RFI responses',
+      'Onboard and mentor junior consultants; review their work before client delivery',
+    ],
+  },
+  {
+    period: 'Feb 2024 — Jun 2024',
+    title: 'Thesis Intern — Threat Hunting Research',
+    org: 'CyberArmor CH',
+    points: [
+      'Built a Threat Hunting framework using MITRE Caldera for adversary emulation',
+      'Contributed merged fixes to the open-source STIX-Shifter library',
+    ],
+  },
+];
+---
+
+<section id="experience" class="section-divider">
+  <div class="max-w-content mx-auto px-6 py-20">
+    <p class="eyebrow mb-8">// 02 experience</p>
+
+    <div class="space-y-12">
+      {roles.map((role) => (
+        <div class="grid md:grid-cols-[200px_1fr] gap-4 md:gap-8">
+          <div class="font-mono text-sm text-trace">{role.period}</div>
+          <div>
+            <h3 class="font-display text-xl font-semibold">{role.title}</h3>
+            <p class="text-paper-muted mb-4">{role.org}</p>
+            <ul class="space-y-2">
+              {role.points.map((point) => (
+                <li class="flex gap-3 text-paper-muted">
+                  <span class="text-signal">·</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

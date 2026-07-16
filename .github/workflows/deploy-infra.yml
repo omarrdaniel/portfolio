@@ -1,0 +1,70 @@
+name: Deploy infra
+
+# Independent from the app deploy. Only touches Cloudflare DNS/WAF/Pages
+# project config, and only runs when terraform/ actually changed — a
+# content commit shouldn't trigger a terraform apply at all.
+#
+# Gated behind the `infra` GitHub Environment, which has its own
+# (stricter) manual-approval reviewers, separate from `production` used
+# by deploy-site.yml — because the blast radius here (DNS, firewall
+# rules) is bigger than a bad static-site deploy.
+
+on:
+  workflow_run:
+    workflows: ["CI — Build & DevSecOps checks"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    name: Check if terraform/ changed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    outputs:
+      infra_changed: ${{ steps.filter.outputs.infra }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          filters: |
+            infra:
+              - 'terraform/**'
+
+  terraform-apply:
+    name: Terraform apply (Cloudflare infra)
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.infra_changed == 'true' }}
+    runs-on: ubuntu-latest
+    environment: infra
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform init
+        run: |
+          terraform init \
+            -backend-config="access_key=${{ secrets.R2_ACCESS_KEY_ID }}" \
+            -backend-config="secret_key=${{ secrets.R2_SECRET_ACCESS_KEY }}"
+
+      - name: Terraform plan
+        run: terraform plan -out=tfplan
+          -var="domain=${{ vars.SITE_DOMAIN }}"
+          -var="cloudflare_account_id=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Terraform apply
+        run: terraform apply -auto-approve tfplan
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

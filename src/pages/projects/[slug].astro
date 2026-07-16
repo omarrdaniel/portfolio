@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<BaseLayout
+  title={`${project.data.title} — Omar Daniel`}
+  description={project.data.summary}
+>
+  <Nav />
+  <main class="max-w-content mx-auto px-6 py-16">
+    <a href="/#projects" class="font-mono text-sm text-trace hover:text-signal transition-colors">
+      ← Back to case studies
+    </a>
+
+    <div class="mt-8 mb-10">
+      <div class="flex flex-wrap gap-3 mb-4 font-mono text-xs text-paper-muted">
+        <span>{project.data.sector}</span>
+        <span>·</span>
+        <span>{project.data.period}</span>
+        <span>·</span>
+        <span>{project.data.role}</span>
+      </div>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold">{project.data.title}</h1>
+      <div class="flex flex-wrap gap-2 mt-4">
+        {project.data.stack.map((item: string) => (
+          <span class="font-mono text-xs px-2 py-1 border border-ink-border rounded-sm text-paper-muted">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <article class="prose prose-invert max-w-2xl
+      prose-headings:font-display prose-headings:font-semibold
+      prose-p:text-paper-muted prose-p:leading-relaxed
+      prose-li:text-paper-muted
+      prose-a:text-trace hover:prose-a:text-signal
+      prose-strong:text-paper">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>

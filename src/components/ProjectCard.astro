@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  sector: string;
+  period: string;
+  stack: string[];
+  summary: string;
+  slug: string;
+}
+
+const { title, sector, period, stack, summary, slug } = Astro.props;
+---
+
+<a
+  href={`/projects/${slug}`}
+  class="group block p-6 bg-ink-elevated border border-ink-border rounded-sm hover:border-trace transition-colors"
+>
+  <div class="flex items-center justify-between mb-3">
+    <span class="font-mono text-xs text-trace">{sector}</span>
+    <span class="font-mono text-xs text-paper-muted">{period}</span>
+  </div>
+  <h3 class="font-display text-lg font-semibold mb-2 group-hover:text-signal transition-colors">
+    {title}
+  </h3>
+  <p class="text-paper-muted text-sm mb-4 leading-relaxed">{summary}</p>
+  <div class="flex flex-wrap gap-2">
+    {stack.map((item) => (
+      <span class="font-mono text-xs px-2 py-1 border border-ink-border rounded-sm text-paper-muted">
+        {item}
+      </span>
+    ))}
+  </div>
+</a>
