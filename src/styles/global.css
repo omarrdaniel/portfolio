@@ -1,8 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@theme {
+  --color-ink: #0B1220;
+  --color-ink-elevated: #101B2D;
+  --color-ink-border: #23324A;
+  --color-paper: #E8EDF4;
+  --color-paper-muted: #8B9AB3;
+  --color-signal: #E8A33D;
+  --color-trace: #3D8FA8;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --container-content: 72rem;
+}
 
 @layer base {
   html {
@@ -18,7 +33,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.signal');
+    outline: 2px solid var(--color-signal);
     outline-offset: 3px;
   }
 }

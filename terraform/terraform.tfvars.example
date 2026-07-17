@@ -1,0 +1,9 @@
+# Copy this to terraform.tfvars and fill in real values.
+# terraform.tfvars is gitignored — never commit it.
+
+domain                 = "omardaniel.dev"
+cloudflare_account_id  = "your-cloudflare-account-id"
+
+# CLOUDFLARE_API_TOKEN is read from the environment, not from this file:
+#   export CLOUDFLARE_API_TOKEN="..."
+# In CI, it's stored as a GitHub Actions secret instead.

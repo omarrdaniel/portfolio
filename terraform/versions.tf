@@ -14,7 +14,7 @@ terraform {
     bucket                      = "omar-portfolio-tfstate"
     key                         = "terraform.tfstate"
     region                      = "auto"
-    endpoints                   = { s3 = "https://e06d1fc4b453f9d40d9194f9ee481843.r2.cloudflarestorage.com" }
+    endpoints                   = { s3 = "https://<ACCOUNT_ID>.r2.cloudflarestorage.com" }
     skip_credentials_validation = true
     skip_region_validation      = true
     skip_metadata_api_check     = true
