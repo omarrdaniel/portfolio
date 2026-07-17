@@ -1,13 +1,6 @@
 name: Deploy infra
 
-# Independent from the app deploy. Only touches Cloudflare DNS/WAF/Pages
-# project config, and only runs when terraform/ actually changed — a
-# content commit shouldn't trigger a terraform apply at all.
-#
-# Gated behind the `infra` GitHub Environment, which has its own
-# (stricter) manual-approval reviewers, separate from `production` used
-# by deploy-site.yml — because the blast radius here (DNS, firewall
-# rules) is bigger than a bad static-site deploy.
+# Only applies Terraform if terraform/ actually changed in the push.
 
 on:
   workflow_run:

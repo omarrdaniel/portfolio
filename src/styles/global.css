@@ -31,6 +31,15 @@
   .section-divider {
     @apply border-t border-ink-border;
   }
+
+  .cursor-blink {
+    @apply inline-block w-[3px] bg-signal ml-1 align-middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

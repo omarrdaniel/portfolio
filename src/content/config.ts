@@ -4,8 +4,7 @@ const projects = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    // Generic descriptor only — never a real client name (see content note in each .md file)
-    sector: z.string(),
+    sector: z.string(), // generic descriptor, never a real client name
     role: z.string(),
     period: z.string(),
     stack: z.array(z.string()),
