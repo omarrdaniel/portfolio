@@ -28,3 +28,9 @@ resource "cloudflare_pages_domain" "custom_domain" {
   project_name = cloudflare_pages_project.portfolio.name
   domain       = var.domain
 }
+
+resource "cloudflare_pages_domain" "www" {
+  account_id   = var.cloudflare_account_id
+  project_name = cloudflare_pages_project.portfolio.name
+  domain       = "www.${var.domain}"
+}

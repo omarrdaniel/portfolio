@@ -11,7 +11,7 @@ resource "cloudflare_record" "www" {
   zone_id = data.cloudflare_zone.this.id
   name    = "www"
   type    = "CNAME"
-  content = var.domain
+  content = "${cloudflare_pages_project.portfolio.name}.pages.dev"
   proxied = true
   ttl     = 1
 }

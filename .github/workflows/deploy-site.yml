@@ -52,6 +52,7 @@ jobs:
         with:
           target: 'https://${{ vars.SITE_DOMAIN }}'
           fail_action: false
+          allow_issue_writing: false
 
       - name: Verify security headers
         run: |
