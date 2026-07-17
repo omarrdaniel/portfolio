@@ -1,10 +1,5 @@
 name: CI — Build & DevSecOps checks
 
-# Runs on every PR and push to main. Nothing here deploys anything —
-# see deploy.yml for that. This workflow's only job is to fail loudly
-# before bad code, leaked secrets, vulnerable dependencies, or unsafe
-# infra changes reach main.
-
 on:
   pull_request:
     branches: [main]
@@ -13,10 +8,9 @@ on:
 
 permissions:
   contents: read
-  security-events: write # required for CodeQL to upload SARIF results
+  security-events: write # needed for CodeQL SARIF upload
 
 jobs:
-  # ── Build & lint ────────────────────────────────────────────────────────
   build:
     name: Lint & build
     runs-on: ubuntu-latest
@@ -25,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -44,7 +38,6 @@ jobs:
           path: dist/
           retention-days: 7
 
-  # ── SAST: static application security testing ───────────────────────────
   sast:
     name: SAST (CodeQL)
     runs-on: ubuntu-latest
@@ -59,21 +52,19 @@ jobs:
       - name: Run CodeQL analysis
         uses: github/codeql-action/analyze@v3
 
-  # ── Secret scanning ──────────────────────────────────────────────────────
   secrets:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history — gitleaks checks past commits too
+          fetch-depth: 0
 
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ── Dependency scanning ──────────────────────────────────────────────────
   dependencies:
     name: Dependency scan
     runs-on: ubuntu-latest
@@ -82,7 +73,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -91,10 +82,6 @@ jobs:
       - name: npm audit (fail on high/critical)
         run: npm audit --audit-level=high
 
-      # Dependabot (configured in .github/dependabot.yml) handles ongoing
-      # version bumps; this step is the PR-time gate.
-
-  # ── IaC scanning ─────────────────────────────────────────────────────────
   iac:
     name: IaC scan (tfsec)
     runs-on: ubuntu-latest
@@ -105,7 +92,7 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
           working_directory: terraform
-          soft_fail: false # a failed IaC scan blocks the merge, same as any other check
+          soft_fail: false
 
       - name: Terraform format check
         uses: hashicorp/setup-terraform@v3

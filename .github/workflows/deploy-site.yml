@@ -1,14 +1,8 @@
 name: Deploy site
 
-# Independent from deploy-infra.yml. Builds and ships the static site to
-# Cloudflare Pages on every push to main — it does NOT wait for or depend
-# on a terraform apply, because the Pages project itself is only created
-# once; every deploy after that is just "upload new static files" and
-# doesn't touch DNS, WAF, or any other Terraform-managed resource.
-#
-# Uses the `production` GitHub Environment — deliberately lighter-gated
-# than `infra` (see deploy-infra.yml), since Cloudflare Pages deploys are
-# atomic and instantly revertible from the dashboard if something's wrong.
+# Independent from deploy-infra.yml — ships on every push, doesn't wait
+# for a terraform apply (the Pages project already exists after the
+# first one).
 
 on:
   workflow_run:
@@ -33,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - run: npm ci
@@ -57,7 +51,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: 'https://${{ vars.SITE_DOMAIN }}'
-          fail_action: false # start non-blocking; tighten once the baseline is triaged once
+          fail_action: false
 
       - name: Verify security headers
         run: |

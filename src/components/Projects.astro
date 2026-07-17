@@ -22,7 +22,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
           period={project.data.period}
           stack={project.data.stack}
           summary={project.data.summary}
-          slug={project.slug}
+          slug={project.id}
         />
       ))}
     </div>
