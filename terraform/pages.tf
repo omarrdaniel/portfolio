@@ -12,12 +12,12 @@ resource "cloudflare_pages_project" "portfolio" {
   deployment_configs {
     production {
       environment_variables = {
-        NODE_VERSION = "22"
+        NODE_VERSION = "24"
       }
     }
     preview {
       environment_variables = {
-        NODE_VERSION = "22"
+        NODE_VERSION = "24"
       }
     }
   }
@@ -27,4 +27,10 @@ resource "cloudflare_pages_domain" "custom_domain" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.portfolio.name
   domain       = var.domain
+}
+
+resource "cloudflare_pages_domain" "www" {
+  account_id   = var.cloudflare_account_id
+  project_name = cloudflare_pages_project.portfolio.name
+  domain       = "www.${var.domain}"
 }
