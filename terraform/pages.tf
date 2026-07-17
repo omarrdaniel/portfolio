@@ -12,12 +12,12 @@ resource "cloudflare_pages_project" "portfolio" {
   deployment_configs {
     production {
       environment_variables = {
-        NODE_VERSION = "22"
+        NODE_VERSION = "24"
       }
     }
     preview {
       environment_variables = {
-        NODE_VERSION = "22"
+        NODE_VERSION = "24"
       }
     }
   }
