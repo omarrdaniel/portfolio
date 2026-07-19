@@ -29,8 +29,6 @@ resource "cloudflare_pages_domain" "custom_domain" {
   domain       = var.domain
 }
 
-resource "cloudflare_pages_domain" "www" {
-  account_id   = var.cloudflare_account_id
-  project_name = cloudflare_pages_project.portfolio.name
-  domain       = "www.${var.domain}"
-}
+# www is not registered as a Pages custom domain: it never actually
+# serves content, it's redirected to the apex at the edge (see redirect.tf)
+# before the request would reach Pages. One less custom domain to verify.
