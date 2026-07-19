@@ -20,7 +20,7 @@ jobs:
       infra_changed: ${{ steps.filter.outputs.infra }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@v4
         id: filter
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
