@@ -1,10 +1,11 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
-// static output for Cloudflare Pages
 export default defineConfig({
-  site: 'https://omardaniel.dev', // update once domain is live
+  site: 'https://omardaniel.dev',
   output: 'static',
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

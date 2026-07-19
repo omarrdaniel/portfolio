@@ -20,6 +20,8 @@ once and assumed to work.
 
 ## Security engineering in this repo
 
+- **`security.txt`** (RFC 9116) at `/.well-known/security.txt` for coordinated
+  vulnerability disclosure
 - **WAF & rate limiting as code** (`terraform/waf.tf`, `terraform/rate_limit.tf`) — custom ruleset
   blocking on Cloudflare threat score, challenge rules on abnormal
   request rates, TLS 1.2 minimum, strict SSL mode
@@ -41,7 +43,7 @@ src/
   content/projects/    case studies as Markdown — drop a file, get a page
   components/          Astro components
   pages/                routes (home + dynamic /projects/[slug])
-terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting
+terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting, www redirect
 .github/workflows/
   ci.yml                build, SAST, secret scan, dependency scan, IaC scan
   deploy-infra.yml       terraform apply — only when terraform/** changes
@@ -51,7 +53,7 @@ terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting
 ## Adding a case study
 
 New Markdown file in `src/content/projects/`, frontmatter per the schema
-in `src/content/config.ts`. Picked up automatically by the listing and
+in `src/content.config.ts`. Picked up automatically by the listing and
 the dynamic route — no component changes needed.
 
 Client names are withheld under confidentiality agreements; sector,
@@ -84,7 +86,7 @@ See `terraform/README.md` for infra setup details.
 ## Required GitHub configuration
 
 - **Secrets:** `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`
-- **Variables:** `SITE_DOMAIN`
+- **Variables:** `SITE_DOMAIN`, `PAGES_DEV_SUBDOMAIN` (the real `<x>.pages.dev` value from the dashboard — see `terraform/README.md`)
 - **Environments:** `infra` (required reviewer), `production` (lighter gate)
 
 ## Contact
