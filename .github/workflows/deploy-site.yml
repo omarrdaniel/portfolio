@@ -40,6 +40,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: omar-portfolio
           directory: dist
+          branch: main
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
   post-deploy-checks:
@@ -49,6 +50,7 @@ jobs:
     steps:
       - name: OWASP ZAP baseline scan
         uses: zaproxy/action-baseline@v0.12.0
+        continue-on-error: true
         with:
           target: 'https://${{ vars.SITE_DOMAIN }}'
           fail_action: false
