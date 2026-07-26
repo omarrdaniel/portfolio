@@ -6,7 +6,7 @@ resource "cloudflare_ruleset" "rate_limit" {
   phase       = "http_ratelimit"
 
   rules {
-    action      = "challenge"
+    action      = "block"
     expression  = "(http.request.uri.path contains \"/\")"
     description = "Challenge IPs exceeding request threshold"
     enabled     = true
