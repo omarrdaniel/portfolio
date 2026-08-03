@@ -22,7 +22,7 @@ const { title, description } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
 
-    <script src="/theme-init.js"></script>
+    <script src="/theme-init.js" is:inline></script>
   </head>
   <body>
     <slot />
