@@ -3,22 +3,30 @@ resource "cloudflare_pages_project" "portfolio" {
   name              = "omar-portfolio"
   production_branch = "main"
 
-  build_config {
+  build_config = {
     build_command   = "npm run build"
     destination_dir = "dist"
     root_dir        = ""
   }
 
-  deployment_configs {
-    production {
-      environment_variables = {
-        NODE_VERSION = "24"
+  deployment_configs = {
+    preview = {
+      env_vars = {
+        NODE_VERSION = {
+          type  = "plain_text"
+          value = "24"
+        }
       }
+      fail_open = false
     }
-    preview {
-      environment_variables = {
-        NODE_VERSION = "24"
+    production = {
+      env_vars = {
+        NODE_VERSION = {
+          type  = "plain_text"
+          value = "24"
+        }
       }
+      fail_open = false
     }
   }
 }
@@ -26,7 +34,7 @@ resource "cloudflare_pages_project" "portfolio" {
 resource "cloudflare_pages_domain" "custom_domain" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.portfolio.name
-  domain       = var.domain
+  name         = var.domain
 }
 
 # www is not registered as a Pages custom domain: it never actually
