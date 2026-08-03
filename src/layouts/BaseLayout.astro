@@ -22,15 +22,7 @@ const { title, description } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
 
-    <script is:inline>
-      // Runs before paint to avoid a flash of the wrong theme.
-      // Default is dark; a "theme" cookie (1h expiry) overrides it.
-      (function () {
-        var match = document.cookie.match(/(?:^|; )theme=(dark|light)/);
-        var theme = match ? match[1] : 'dark';
-        if (theme === 'dark') document.documentElement.classList.add('dark');
-      })();
-    </script>
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <slot />
