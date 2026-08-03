@@ -5,12 +5,14 @@ resource "cloudflare_ruleset" "waf_custom" {
   kind        = "zone"
   phase       = "http_request_firewall_custom"
 
-  rules {
-    action      = "block"
-    expression  = "(cf.threat_score gt 30)"
-    description = "Block requests from IPs with an elevated Cloudflare threat score"
-    enabled     = true
-  }
 
   # rate-based protection lives in rate_limit.tf (cloudflare_ruleset, http_ratelimit phase)
+  rules = [
+    {
+      action      = "block"
+      expression  = "(cf.threat_score gt 30)"
+      description = "Block requests from IPs with an elevated Cloudflare threat score"
+      enabled     = true
+    }
+  ]
 }

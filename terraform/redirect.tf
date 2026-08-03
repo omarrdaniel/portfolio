@@ -5,20 +5,21 @@ resource "cloudflare_ruleset" "www_redirect" {
   kind        = "zone"
   phase       = "http_request_dynamic_redirect"
 
-  rules {
-    action      = "redirect"
-    expression  = "(http.host eq \"www.${var.domain}\")"
-    description = "www to apex"
-    enabled     = true
-
-    action_parameters {
-      from_value {
-        status_code = 301
-        target_url {
-          expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
+  rules = [
+    {
+      action      = "redirect"
+      expression  = "(http.host eq \"www.${var.domain}\")"
+      description = "www to apex"
+      enabled     = true
+      action_parameters = {
+        from_value = {
+          status_code           = 301
+          preserve_query_string = true
+          target_url = {
+            expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
+          }
         }
-        preserve_query_string = true
       }
     }
-  }
+  ]
 }
