@@ -13,19 +13,19 @@ const { title, sector, period, stack, summary, slug } = Astro.props;
 
 <a
   href={`/projects/${slug}`}
-  class="group block p-6 bg-ink-elevated border border-ink-border rounded-sm hover:border-trace transition-colors"
+  class="group block card p-6 hover:-translate-y-0.5 transition"
 >
   <div class="flex items-center justify-between mb-3">
-    <span class="font-mono text-xs text-trace">{sector}</span>
-    <span class="font-mono text-xs text-paper-muted">{period}</span>
+    <span class="chip bg-chip-amber text-chip-amber-ink">{sector}</span>
+    <span class="font-body font-bold text-xs text-muted">{period}</span>
   </div>
-  <h3 class="font-display text-lg font-semibold mb-2 group-hover:text-signal transition-colors">
+  <h3 class="font-display text-lg font-semibold mb-2 group-hover:text-sage transition-colors">
     {title}
   </h3>
-  <p class="text-paper-muted text-sm mb-4 leading-relaxed">{summary}</p>
+  <p class="text-muted text-sm mb-4 leading-relaxed">{summary}</p>
   <div class="flex flex-wrap gap-2">
     {stack.map((item) => (
-      <span class="font-mono text-xs px-2 py-1 border border-ink-border rounded-sm text-paper-muted">
+      <span class="font-body text-xs font-bold px-2.5 py-1 rounded-full bg-chip-green text-chip-green-ink">
         {item}
       </span>
     ))}

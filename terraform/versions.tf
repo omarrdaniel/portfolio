@@ -8,8 +8,6 @@ terraform {
     }
   }
 
-  # State in R2. Bucket created manually before first init (see README).
-  # Credentials passed via -backend-config at init time, not stored here.
   backend "s3" {
     bucket                      = "omar-portfolio-tfstate"
     key                         = "terraform.tfstate"

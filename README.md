@@ -12,7 +12,7 @@ once and assumed to work.
 
 | Layer | Choice |
 |---|---|
-| Frontend | [Astro](https://astro.build) + Tailwind — static output, no client-side JS by default |
+| Frontend | [Astro](https://astro.build) + Tailwind v4 — static output, no client-side JS by default |
 | Hosting | Cloudflare Pages |
 | DNS / WAF / Rate limiting | Cloudflare, managed as code via Terraform |
 | State backend | Cloudflare R2 (S3-compatible), native lockfile locking |
@@ -20,11 +20,10 @@ once and assumed to work.
 
 ## Security engineering in this repo
 
-- **`security.txt`** (RFC 9116) at `/.well-known/security.txt` for coordinated
-  vulnerability disclosure
 - **WAF & rate limiting as code** (`terraform/waf.tf`, `terraform/rate_limit.tf`) — custom ruleset
-  blocking on Cloudflare threat score, challenge rules on abnormal
-  request rates, TLS 1.2 minimum, strict SSL mode
+  blocking on Cloudflare threat score, rate-based blocking on abnormal request rates
+- **security.txt** (RFC 9116) at `/.well-known/security.txt` for coordinated
+  vulnerability disclosure
 - **CSP, HSTS, X-Frame-Options, Permissions-Policy** set via `public/_headers`
   and verified against the live site after every deploy, not just declared
 - **SAST** (CodeQL), **secret scanning** (gitleaks), **dependency scanning**
@@ -46,7 +45,7 @@ src/
 terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting, www redirect
 .github/workflows/
   ci.yml                build, SAST, secret scan, dependency scan, IaC scan
-  deploy-infra.yml       terraform apply — only when terraform/** changes
+  deploy-infra.yml       terraform plan always; apply only on real changes, gated on approval
   deploy-site.yml        build + deploy to Cloudflare Pages, every push
 ```
 
@@ -74,9 +73,9 @@ Three workflows, each scoped to what actually needs to run:
 
 - **`ci.yml`** — every PR and push to main: type-check, build, CodeQL,
   gitleaks, npm audit, tfsec. Any failure blocks merge.
-- **`deploy-infra.yml`** — runs after CI passes, but only applies
-  Terraform if `terraform/**` changed. Gated behind the `infra`
-  environment (required reviewer).
+- **`deploy-infra.yml`** — always runs a `terraform plan` after CI
+  passes; `apply` only triggers, behind manual approval on the `infra`
+  environment, if the plan actually detected changes.
 - **`deploy-site.yml`** — runs after CI passes, deploys the built site
   to Cloudflare Pages on every push, then runs a ZAP baseline scan and
   checks the expected security headers are present on the live response.
@@ -86,7 +85,7 @@ See `terraform/README.md` for infra setup details.
 ## Required GitHub configuration
 
 - **Secrets:** `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`
-- **Variables:** `SITE_DOMAIN`, `PAGES_DEV_SUBDOMAIN` (the real `<x>.pages.dev` value from the dashboard — see `terraform/README.md`)
+- **Variables:** `SITE_DOMAIN`, `PAGES_DEV_SUBDOMAIN`
 - **Environments:** `infra` (required reviewer), `production` (lighter gate)
 
 ## Contact

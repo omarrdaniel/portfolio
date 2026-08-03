@@ -1,0 +1,4 @@
+Contact: mailto:hello@omardaniel.dev
+Expires: 2027-07-19T23:59:00.000Z
+Preferred-Languages: en, it
+Canonical: https://omardaniel.dev/.well-known/security.txt
