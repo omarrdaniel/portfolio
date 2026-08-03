@@ -3,6 +3,7 @@
 
 domain                 = "omardaniel.dev"
 cloudflare_account_id  = "your-cloudflare-account-id"
+pages_dev_subdomain    = "omar-portfolio" # check dashboard — may not match the project name
 
 # CLOUDFLARE_API_TOKEN is read from the environment, not from this file:
 #   export CLOUDFLARE_API_TOKEN="..."

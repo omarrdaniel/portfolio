@@ -12,7 +12,5 @@ resource "cloudflare_ruleset" "waf_custom" {
     enabled     = true
   }
 
-  # rate-based protection lives in rate_limit.tf (cloudflare_rate_limit) —
-  # rate() isn't valid inside a plain WAF custom rule expression, it needs
-  # the dedicated ratelimit action block / http_ratelimit phase instead
+  # rate-based protection lives in rate_limit.tf (cloudflare_ruleset, http_ratelimit phase)
 }

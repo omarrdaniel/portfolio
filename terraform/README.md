@@ -13,7 +13,8 @@ pages.tf           Pages project + custom domain
 dns.tf             DNS records
 waf.tf             WAF ruleset
 rate_limit.tf
-zone_settings.tf   TLS / SSL / security level
+redirect.tf        www -> apex redirect
+zone_settings.tf   TLS / SSL / security level (manual, see note in file)
 ```
 
 ## Prerequisites
@@ -24,6 +25,8 @@ zone_settings.tf   TLS / SSL / security level
    - `Zone.Zone Settings: Edit`
    - `Account.Cloudflare Pages: Edit`
    - `Zone.Firewall Services: Edit`
+   - `Zone.Single Redirect: Edit`
+   - `Zone.Zone: Read`
 
 ## Bootstrap: R2 state bucket (one-time)
 
@@ -36,9 +39,6 @@ npx wrangler r2 bucket create omar-portfolio-tfstate
 Then create a bucket-scoped R2 API token (dashboard → R2 → Manage R2 API
 tokens → Object Read & Write, scoped to this bucket only) — separate
 from `CLOUDFLARE_API_TOKEN`.
-
-Replace `<ACCOUNT_ID>` in the `backend "s3"` block in `versions.tf` with
-your Cloudflare account ID (not a secret — visible in the dashboard sidebar).
 
 R2 credentials are passed at init time via partial backend config, never
 hardcoded:
@@ -72,7 +72,17 @@ terraform plan
 terraform apply
 ```
 
+## Free-plan gotchas hit along the way
+
+- Rate limiting: `period` and `mitigation_timeout` are restricted to `10`
+  on Free; `challenge`-type actions aren't available (use `block`).
+- `www.pages.dev` project subdomain can differ from the project name if
+  that name is already taken globally — check the dashboard.
+- Cloudflare Pages needs at least one manual deploy from the dashboard
+  before the API will accept Pages calls for a brand-new account.
+
 ## CI
 
-`deploy-infra.yml` only runs `plan`/`apply` when `terraform/**` changed
-in the push, gated behind the `infra` environment (manual approval).
+`deploy-infra.yml` always runs `plan`; `apply` only triggers (behind
+manual approval on the `infra` environment) if the plan actually detected
+changes.

@@ -20,35 +20,32 @@ const { Content } = await render(project);
   description={project.data.summary}
 >
   <Nav />
-  <main class="max-w-content mx-auto px-6 py-16">
-    <a href="/#projects" class="font-mono text-sm text-trace hover:text-signal transition-colors">
+  <main class="max-w-content mx-auto px-6 py-12">
+    <a href="/#projects" class="font-body font-bold text-sm text-sage hover:opacity-75 transition">
       ← Back to case studies
     </a>
 
-    <div class="mt-8 mb-10">
-      <div class="flex flex-wrap gap-3 mb-4 font-mono text-xs text-paper-muted">
-        <span>{project.data.sector}</span>
-        <span>·</span>
-        <span>{project.data.period}</span>
-        <span>·</span>
-        <span>{project.data.role}</span>
+    <div class="mt-6 mb-8">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="chip bg-chip-amber text-chip-amber-ink">{project.data.sector}</span>
+        <span class="chip bg-chip-green text-chip-green-ink">{project.data.period}</span>
       </div>
       <h1 class="font-display text-3xl sm:text-4xl font-semibold">{project.data.title}</h1>
       <div class="flex flex-wrap gap-2 mt-4">
         {project.data.stack.map((item: string) => (
-          <span class="font-mono text-xs px-2 py-1 border border-ink-border rounded-sm text-paper-muted">
+          <span class="font-body text-xs font-bold px-2.5 py-1 rounded-full bg-card border border-border text-muted">
             {item}
           </span>
         ))}
       </div>
     </div>
 
-    <article class="prose prose-invert max-w-2xl
-      prose-headings:font-display prose-headings:font-semibold
-      prose-p:text-paper-muted prose-p:leading-relaxed
-      prose-li:text-paper-muted
-      prose-a:text-trace hover:prose-a:text-signal
-      prose-strong:text-paper">
+    <article class="prose max-w-2xl
+      prose-headings:font-display prose-headings:font-semibold prose-headings:text-ink
+      prose-p:text-muted prose-p:leading-relaxed
+      prose-li:text-muted
+      prose-a:text-sage hover:prose-a:opacity-75
+      prose-strong:text-ink">
       <Content />
     </article>
   </main>

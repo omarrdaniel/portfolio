@@ -1,22 +1,47 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap');
 
 @theme {
-  --color-ink: #0B1220;
-  --color-ink-elevated: #101B2D;
-  --color-ink-border: #23324A;
-  --color-paper: #E8EDF4;
-  --color-paper-muted: #8B9AB3;
-  --color-signal: #E8A33D;
-  --color-trace: #3D8FA8;
+  --color-page: #F7F3E8;
+  --color-card: #FFFDF7;
+  --color-chrome: #EDE7D6;
+  --color-ink: #3E4A34;
+  --color-muted: #6B6552;
+  --color-border: #D9D2BB;
 
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "IBM Plex Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --color-sage: #7FA86B;
+  --color-sage-ink: #F7F3E8;
+  --color-chip-green: #E7EFDB;
+  --color-chip-green-ink: #3B6D11;
+
+  --color-amber: #E8B478;
+  --color-chip-amber: #FBEADD;
+  --color-chip-amber-ink: #BA7517;
+
+  --font-display: "Fredoka", sans-serif;
+  --font-body: "Nunito", sans-serif;
 
   --container-content: 72rem;
+}
+
+.dark {
+  --color-page: #20231B;
+  --color-card: #282C21;
+  --color-chrome: #282C21;
+  --color-ink: #F2EFE2;
+  --color-muted: #ACA792;
+  --color-border: #454A38;
+
+  --color-sage: #8FBF6E;
+  --color-sage-ink: #1A2413;
+  --color-chip-green: #33402A;
+  --color-chip-green-ink: #B9DDA2;
+
+  --color-amber: #E8C088;
+  --color-chip-amber: #3F3527;
+  --color-chip-amber-ink: #E8C088;
 }
 
 @layer base {
@@ -25,35 +50,35 @@
   }
 
   body {
-    @apply bg-ink text-paper font-body antialiased;
+    @apply bg-page text-ink font-body antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   ::selection {
-    @apply bg-signal/30 text-paper;
+    @apply bg-sage/30 text-ink;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-signal);
+    outline: 2px solid var(--color-sage);
     outline-offset: 3px;
   }
 }
 
 @layer components {
-  .eyebrow {
-    @apply font-mono text-xs tracking-widest uppercase text-trace;
+  .chip {
+    @apply font-body font-bold text-xs px-3.5 py-1.5 rounded-full;
+  }
+
+  .card {
+    @apply bg-card rounded-2xl;
+  }
+
+  .pill-btn {
+    @apply font-body font-bold text-sm px-6 py-3 rounded-full transition;
   }
 
   .section-divider {
-    @apply border-t border-ink-border;
-  }
-
-  .cursor-blink {
-    @apply inline-block w-[3px] bg-signal ml-1 align-middle;
-    animation: blink 1s step-end infinite;
-  }
-
-  @keyframes blink {
-    50% { opacity: 0; }
+    @apply border-t border-border;
   }
 }
 
