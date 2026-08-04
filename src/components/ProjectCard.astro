@@ -2,24 +2,20 @@
 interface Props {
   title: string;
   sector: string;
-  period: string;
   stack: string[];
   summary: string;
   slug: string;
 }
 
-const { title, sector, period, stack, summary, slug } = Astro.props;
+const { title, sector, stack, summary, slug } = Astro.props;
 ---
 
 <a
   href={`/projects/${slug}`}
   class="group block card p-6 hover:-translate-y-0.5 transition"
 >
-  <div class="flex items-center justify-between mb-3">
-    <span class="chip bg-chip-amber text-chip-amber-ink">{sector}</span>
-    <span class="font-body font-bold text-xs text-muted">{period}</span>
-  </div>
-  <h3 class="font-display text-lg font-semibold mb-2 group-hover:text-sage transition-colors">
+  <span class="chip bg-chip-amber text-chip-amber-ink">{sector}</span>
+  <h3 class="font-display text-lg font-semibold mt-3 mb-2 group-hover:text-sage transition-colors">
     {title}
   </h3>
   <p class="text-muted text-sm mb-4 leading-relaxed">{summary}</p>
