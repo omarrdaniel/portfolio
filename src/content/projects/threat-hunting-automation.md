@@ -4,7 +4,7 @@ sector: "Research / open source"
 role: "Thesis Intern"
 stack: ["MITRE Caldera", "Python", "STIX-Shifter", "MITRE ATT&CK"]
 summary: "Built a practical threat hunting framework using adversary emulation, and contributed fixes upstream to an open-source threat intel translation library."
-order: 7
+order: 8
 ---
 
 ## Context

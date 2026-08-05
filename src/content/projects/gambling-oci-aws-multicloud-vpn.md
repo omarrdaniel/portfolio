@@ -4,7 +4,7 @@ sector: "Gambling / betting, EU"
 role: "Cloud Network & Security Consultant"
 stack: ["AWS", "Oracle Cloud Infrastructure (OCI)", "VPN", "Hub-and-Spoke"]
 summary: "Set up VPN connectivity between Oracle Cloud Infrastructure and AWS, and managed routing within a new AWS hub-and-spoke architecture, as part of the client's multi-cloud network design."
-order: 9
+order: 7
 ---
 
 ## Context

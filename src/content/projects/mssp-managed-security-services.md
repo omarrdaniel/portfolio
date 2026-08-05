@@ -4,7 +4,7 @@ sector: "Multi-sector — MSSP engagement"
 role: "Cloud Network & Security Consultant"
 stack: ["Akamai", "F5 Distributed Cloud", "F5 BIG-IP", "Cisco", "Palo Alto Networks", "Azure Firewall", "Azure WAF", "GCP Cloud Armor", "ServiceNow", "Jira"]
 summary: "Ongoing managed security services across multiple clients: Akamai CDN/WAF/DNS/Zero Trust, F5 Distributed Cloud, BIG-IP, and firewall platforms (Cisco, Palo Alto) — handling both change requests and incident response."
-order: 8
+order: 9
 ---
 
 ## Context
