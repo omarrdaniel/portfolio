@@ -16,35 +16,28 @@ const { Content } = await render(project);
 ---
 
 <BaseLayout
-  title={`${project.data.title} — Omar Daniel`}
+  title={`${project.data.title} | Omar Daniel`}
   description={project.data.summary}
 >
   <Nav />
-  <main class="max-w-content mx-auto px-6 py-12">
-    <a href="/#projects" class="font-body font-bold text-sm text-sage hover:opacity-75 transition">
-      ← Back to case studies
-    </a>
+  <main class="max-w-content mx-auto px-6 py-10">
+    <a href="/#work" class="text-link text-sm">← Back to case studies</a>
 
     <div class="mt-6 mb-8">
-      <div class="flex flex-wrap gap-2 mb-4">
-        <span class="chip bg-chip-amber text-chip-amber-ink">{project.data.sector}</span>
-        <span class="chip bg-chip-green text-chip-green-ink">{project.data.role}</span>
-      </div>
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold">{project.data.title}</h1>
-      <div class="flex flex-wrap gap-2 mt-4">
-        {project.data.stack.map((item: string) => (
-          <span class="font-body text-xs font-bold px-2.5 py-1 rounded-full bg-card border border-border text-muted">
-            {item}
-          </span>
-        ))}
+      <p class="text-xs text-muted font-bold mb-2">
+        {project.data.sector.toUpperCase()} · {project.data.role.toUpperCase()}
+      </p>
+      <h1 class="font-display text-2xl sm:text-3xl font-semibold mb-4">{project.data.title}</h1>
+      <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
+        {project.data.stack.map((item: string) => <span>{item}</span>)}
       </div>
     </div>
 
-    <article class="prose max-w-2xl
+    <article class="prose max-w-lg
       prose-headings:font-display prose-headings:font-semibold prose-headings:text-ink
       prose-p:text-muted prose-p:leading-relaxed
       prose-li:text-muted
-      prose-a:text-sage hover:prose-a:opacity-75
+      prose-a:text-ink prose-a:underline prose-a:decoration-sage prose-a:decoration-2 prose-a:underline-offset-2
       prose-strong:text-ink">
       <Content />
     </article>

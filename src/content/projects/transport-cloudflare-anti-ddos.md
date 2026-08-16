@@ -9,7 +9,7 @@ order: 3
 
 ## Context
 
-The client operates transport and road infrastructure systems where network-layer availability is critical. The existing setup had no dedicated network-layer DDoS protection, and B2B/B2C applications were running without modern edge security.
+The client operates transport and road infrastructure systems where network-layer availability is critical. An L3/L4 DDoS attack against the wrong system isn't just an inconvenience, it can affect operational infrastructure. The existing setup had no dedicated network-layer DDoS protection, and B2B/B2C applications were running without modern edge security.
 
 ## What I did
 
@@ -21,6 +21,6 @@ The client operates transport and road infrastructure systems where network-laye
 
 - Network-layer traffic now has DDoS scrubbing in front of it by design, instead of relying on absorbing attacks with on-premises capacity
 - B2B/B2C applications gained WAF and anti-bot coverage they didn't have before, on top of the availability benefits of caching at the edge
-- Two previously separate concerns — network-layer resilience and application-layer security — now sit on the same platform, simplifying who the client's team talks to when something needs adjusting
+- Two previously separate concerns, network-layer resilience and application-layer security, now sit on the same platform, simplifying who the client's team talks to when something needs adjusting
 
 *Client name withheld per confidentiality agreement. Architecture and outcomes described are accurate; identifying details have been generalized.*

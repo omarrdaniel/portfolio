@@ -2,7 +2,7 @@
 title: "F5 Distributed Cloud Migration with Behavioral Anti-Bot & API Security"
 sector: "Food & beverage, EU"
 role: "Cloud Network & Security Consultant"
-stack: ["F5 Distributed Cloud", "Terraform", "API Security", "Behavioral Anti-Bot", "IaC"]
+stack: ["F5 Distributed Cloud", "Terraform", "API Security", "Behavioral Anti-Bot"]
 summary: "Migrated B2B and B2C applications to F5 Distributed Cloud and activated advanced security capabilities, behavioral anti-bot and API security, managed entirely through Terraform."
 order: 5
 ---

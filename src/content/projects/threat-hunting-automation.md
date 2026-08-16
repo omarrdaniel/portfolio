@@ -14,7 +14,7 @@ Threat hunting programs often stay reactive: teams react to alerts rather than p
 ## What I did
 
 - Designed and ran adversary emulation exercises using MITRE Caldera, mapping techniques to the MITRE ATT&CK framework to test detection coverage across multiple security tools
-- Wrote Python automation to turn manual hunting playbooks ("huntbooks") into repeatable, scriptable procedures — reducing the manual effort needed for each hunting cycle
+- Wrote Python automation to turn manual hunting playbooks ("huntbooks") into repeatable, scriptable procedures, reducing the manual effort needed for each hunting cycle
 - Identified and fixed bugs in STIX-Shifter (an open-source library used to translate threat intelligence queries across different security platforms), specifically in the Sumologic, Elastic, and ReaQta connector modules
 - Submitted the fixes upstream; the pull request was reviewed and merged into the main project
 
@@ -23,3 +23,5 @@ Threat hunting programs often stay reactive: teams react to alerts rather than p
 - A documented, repeatable threat hunting methodology validated across multiple technology stacks, used as the basis of my thesis
 - Upstream open-source contribution now benefiting other STIX-Shifter users integrating with Sumologic, Elastic, or ReaQta
 - Thesis graded as part of a 110/110 cum laude degree
+
+[View the merged contribution on GitHub →](https://github.com/omarrdaniel)

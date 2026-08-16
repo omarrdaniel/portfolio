@@ -1,28 +1,29 @@
 ---
 import { getCollection } from 'astro:content';
-import ProjectCard from './ProjectCard.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const total = String(projects.length).padStart(2, '0');
 ---
 
-<section id="projects" class="section-divider">
-  <div class="max-w-content mx-auto px-6 py-16">
-    <span class="chip bg-chip-amber text-chip-amber-ink">Case studies</span>
-    <h2 class="font-display text-2xl font-semibold mt-5 mb-2">Selected work.</h2>
-    <p class="text-muted mb-8 max-w-xl">
-      Client names are withheld under confidentiality agreements — architecture,
-      approach, and outcomes are described accurately.
+<section id="work" class="section-divider">
+  <div class="max-w-content mx-auto px-6 py-10">
+    <p class="label mb-1">Selected work · ({total}) sector, problem, what changed</p>
+    <p class="text-muted text-sm mb-8 max-w-lg">
+      Client names are withheld under confidentiality agreements. Everything else is accurate.
     </p>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      {projects.map((project) => (
-        <ProjectCard
-          title={project.data.title}
-          sector={project.data.sector}
-          stack={project.data.stack}
-          summary={project.data.summary}
-          slug={project.id}
-        />
+    <div>
+      {projects.map((project, i) => (
+        <a href={`/projects/${project.id}`} class="group block py-6 border-b border-border last:border-none">
+          <p class="text-xs text-muted font-bold mb-1">
+            {String(i + 1).padStart(2, '0')} · {project.data.sector.toUpperCase()}
+          </p>
+          <h3 class="font-display text-lg font-semibold mb-2 group-hover:text-sage transition-colors">
+            {project.data.title}
+          </h3>
+          <p class="text-muted text-sm leading-relaxed max-w-lg mb-3">{project.data.summary}</p>
+          <span class="text-link text-sm">Read the case study →</span>
+        </a>
       ))}
     </div>
   </div>
