@@ -2,24 +2,22 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const links = [
-  { href: '/#about', label: 'About' },
+  { href: '/#work', label: 'Work' },
   { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#skills', label: 'Skills' },
   { href: '/#contact', label: 'Contact' },
 ];
 ---
 
 <header class="sticky top-0 z-50 bg-page/90 backdrop-blur">
-  <nav class="max-w-content mx-auto flex items-center justify-between px-6 py-4">
-    <a href="/#top" class="font-display font-semibold text-lg text-ink">
-      omar daniel
+  <nav class="max-w-content mx-auto flex items-center justify-between px-6 py-5">
+    <a href="/#top" class="font-display font-semibold text-base text-ink">
+      Omar Daniel.
     </a>
     <div class="flex items-center gap-6">
       <ul class="hidden sm:flex gap-6 font-body font-bold text-sm text-muted">
         {links.map((link) => (
           <li>
-            <a href={link.href} class="hover:text-sage transition-colors">{link.label}</a>
+            <a href={link.href} class="hover:text-ink transition-colors">{link.label}</a>
           </li>
         ))}
       </ul>

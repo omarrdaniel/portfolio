@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap');
 
 @theme {
   --color-page: #F7F3E8;
@@ -13,17 +13,12 @@
 
   --color-sage: #7FA86B;
   --color-sage-ink: #F7F3E8;
-  --color-chip-green: #E7EFDB;
-  --color-chip-green-ink: #3B6D11;
-
   --color-amber: #E8B478;
-  --color-chip-amber: #FBEADD;
-  --color-chip-amber-ink: #BA7517;
 
-  --font-display: "Fredoka", sans-serif;
+  --font-display: "Fraunces", serif;
   --font-body: "Nunito", sans-serif;
 
-  --container-content: 72rem;
+  --container-content: 42rem;
 }
 
 .dark {
@@ -36,12 +31,7 @@
 
   --color-sage: #8FBF6E;
   --color-sage-ink: #1A2413;
-  --color-chip-green: #33402A;
-  --color-chip-green-ink: #B9DDA2;
-
   --color-amber: #E8C088;
-  --color-chip-amber: #3F3527;
-  --color-chip-amber-ink: #E8C088;
 }
 
 @layer base {
@@ -65,20 +55,31 @@
 }
 
 @layer components {
-  .chip {
-    @apply font-body font-bold text-xs px-3.5 py-1.5 rounded-full;
+  /* underlined text link, used instead of button-style CTAs */
+  .text-link {
+    @apply font-body font-bold text-ink;
+    text-decoration: underline;
+    text-decoration-color: var(--color-sage);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
-  .card {
-    @apply bg-card rounded-2xl;
+  .text-link-amber {
+    text-decoration-color: var(--color-amber);
   }
 
-  .pill-btn {
-    @apply font-body font-bold text-sm px-6 py-3 rounded-full transition;
+  /* keyword emphasis inside prose, not a badge/chip */
+  .kw {
+    @apply font-bold;
+    color: var(--color-sage);
   }
 
   .section-divider {
     @apply border-t border-border;
+  }
+
+  .label {
+    @apply font-body font-bold text-xs text-muted uppercase tracking-wide;
   }
 }
 

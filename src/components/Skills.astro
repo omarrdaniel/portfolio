@@ -1,35 +1,20 @@
 ---
 const groups = [
-  {
-    label: 'Security',
-    items: ['WAF', 'Zero Trust', 'SASE', 'Anti-DDoS', 'Threat Hunting', 'MITRE ATT&CK', 'AI Security'],
-  },
-  {
-    label: 'Platforms',
-    items: ['F5 Distributed Cloud', 'Cloudflare', 'Akamai', 'Palo Alto NGFW', 'Cisco', 'AWS', 'Azure'],
-  },
-  {
-    label: 'Engineering',
-    items: ['Terraform', 'CI/CD', 'Python', 'Linux', 'Git', 'Docker'],
-  },
+  { label: 'Cloud & Security', items: 'AWS, Azure, Zero Trust, WAF, Firewall, CDN, AI Security' },
+  { label: 'Automation & Scripting', items: 'Python, Bash, Terraform, Git, CI/CD, DevSecOps' },
+  { label: 'Platforms', items: 'F5, Cloudflare, Akamai, Palo Alto Networks, Cisco' },
 ];
 ---
 
 <section id="skills" class="section-divider">
-  <div class="max-w-content mx-auto px-6 py-16">
-    <span class="chip bg-chip-green text-chip-green-ink">Skills</span>
-    <div class="grid sm:grid-cols-3 gap-8 mt-8">
+  <div class="max-w-content mx-auto px-6 py-10">
+    <p class="label mb-6">Skills</p>
+    <div class="space-y-3">
       {groups.map((group) => (
-        <div>
-          <h3 class="font-display font-semibold text-sage mb-3">{group.label}</h3>
-          <div class="flex flex-wrap gap-2">
-            {group.items.map((item) => (
-              <span class="font-body text-xs font-bold px-2.5 py-1 rounded-full bg-card border border-border text-muted">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
+        <p class="text-sm leading-relaxed">
+          <span class="font-bold text-ink">{group.label}:</span>
+          <span class="text-muted"> {group.items}</span>
+        </p>
       ))}
     </div>
   </div>

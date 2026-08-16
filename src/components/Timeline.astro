@@ -3,43 +3,45 @@ const roles = [
   {
     period: 'Jul 2024 — Present',
     title: 'Cloud Network & Security Consultant',
-    org: 'Communication Valley Reply',
+    org: 'Communication Valley Reply · Milan, Italy (Hybrid)',
     points: [
-      'Primary technical point of contact for a portfolio of enterprise clients',
-      'Direct vendor collaboration with F5, Cloudflare, and Akamai on escalations and joint solution design',
-      'Pre-sales: technical demos, PoC design, RFP/RFI responses',
-      'Onboard and mentor junior consultants; review their work before client delivery',
+      'Primary technical contact for 5+ enterprise clients, from requirements gathering through post-go-live support',
+      'Designed, implemented and managed Multi-Cloud, WAF, Firewall, CDN, Anti-DDoS, DNS and Zero Trust architectures across F5, Cloudflare, Akamai, and Cisco integrated with AWS and Azure',
+      'Applied AI Security frameworks to harden AI/ML workloads',
+      'Automated infrastructure provisioning via Terraform/API and integrated security controls into CI/CD pipelines',
+      'Ran pre-sales technical demos, and PoC design; managed vendor escalations and communications with F5, Cloudflare, and Akamai',
+      'Mentored and onboarded junior consultants, reviewing their work before client delivery',
     ],
   },
   {
     period: 'Feb 2024 — Jun 2024',
-    title: 'Thesis Intern — Threat Hunting Research',
-    org: 'CyberArmor CH',
+    title: 'Thesis Intern | Threat Hunting Research',
+    org: 'CyberArmor CH · Switzerland, Remote',
     points: [
-      'Built a Threat Hunting framework using MITRE Caldera for adversary emulation',
-      'Contributed merged fixes to the open-source STIX-Shifter library',
+      'Built a Threat Hunting framework using MITRE Caldera for adversary emulation, mapped to MITRE ATT&CK',
+      'Automated manual hunting playbooks into repeatable Python scripts, cutting investigation effort',
+      'Fixed bugs in the open-source STIX-Shifter library (Sumologic, Elastic, ReaQta modules); PR merged upstream',
     ],
   },
 ];
 ---
 
 <section id="experience" class="section-divider">
-  <div class="max-w-content mx-auto px-6 py-16">
-    <span class="chip bg-chip-green text-chip-green-ink">Experience</span>
+  <div class="max-w-content mx-auto px-6 py-10">
+    <p class="label mb-6">Experience</p>
 
-    <div class="space-y-6 mt-8">
+    <div class="space-y-10">
       {roles.map((role) => (
-        <div class="card p-6">
-          <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+        <div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-1">
             <h3 class="font-display text-lg font-semibold">{role.title}</h3>
-            <span class="font-body font-bold text-xs text-sage">{role.period}</span>
+            <span class="text-sm text-muted">{role.period}</span>
           </div>
-          <p class="text-muted mb-4">{role.org}</p>
-          <ul class="space-y-2">
+          <p class="text-muted text-sm mb-3">{role.org}</p>
+          <ul class="space-y-1.5">
             {role.points.map((point) => (
-              <li class="flex gap-3 text-muted">
-                <span class="text-sage">•</span>
-                <span>{point}</span>
+              <li class="text-muted text-sm leading-relaxed pl-4 relative before:content-['-'] before:absolute before:left-0 before:text-border">
+                {point}
               </li>
             ))}
           </ul>
