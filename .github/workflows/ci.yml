@@ -1,4 +1,4 @@
-name: CI — Build & DevSecOps checks
+name: CI ,  Build & DevSecOps checks
 
 on:
   pull_request:

@@ -1,12 +1,12 @@
 name: Deploy site
 
-# Independent from deploy-infra.yml — ships on every push, doesn't wait
+# Independent from deploy-infra.yml ,  ships on every push, doesn't wait
 # for a terraform apply (the Pages project already exists after the
 # first one).
 
 on:
   workflow_run:
-    workflows: ["CI — Build & DevSecOps checks"]
+    workflows: ["CI ,  Build & DevSecOps checks"]
     types: [completed]
     branches: [main]
 

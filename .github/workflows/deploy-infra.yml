@@ -1,11 +1,11 @@
 name: Deploy infra
 
-# Plan always runs — read-only, safe. Apply only triggers, and asks for
+# Plan always runs ,  read-only, safe. Apply only triggers, and asks for
 # manual approval, if the plan actually detected changes.
 
 on:
   workflow_run:
-    workflows: ["CI — Build & DevSecOps checks"]
+    workflows: ["CI ,  Build & DevSecOps checks"]
     types: [completed]
     branches: [main]
 
@@ -47,7 +47,7 @@ jobs:
             -var="pages_dev_subdomain=${{ vars.PAGES_DEV_SUBDOMAIN }}"
           code=$?
           echo "exitcode=$code" >> "$GITHUB_OUTPUT"
-          # 0 = no changes, 2 = changes present — both are a successful plan.
+          # 0 = no changes, 2 = changes present ,  both are a successful plan.
           # 1 = a real error, fail the job for that one.
           if [ "$code" -eq 1 ]; then
             exit 1

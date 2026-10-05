@@ -1,7 +1,7 @@
-# Infrastructure as Code — Cloudflare
+# Infrastructure as Code ,  Cloudflare
 
 Manages DNS, the Pages project, WAF rules, rate limiting and zone
-security settings for the site — one resource type per file:
+security settings for the site ,  one resource type per file:
 
 ```
 versions.tf       terraform block, provider requirements, backend
@@ -37,7 +37,7 @@ npx wrangler r2 bucket create omar-portfolio-tfstate
 ```
 
 Then create a bucket-scoped R2 API token (dashboard → R2 → Manage R2 API
-tokens → Object Read & Write, scoped to this bucket only) — separate
+tokens → Object Read & Write, scoped to this bucket only) ,  separate
 from `CLOUDFLARE_API_TOKEN`.
 
 R2 credentials are passed at init time via partial backend config, never
@@ -50,7 +50,7 @@ terraform init \
 ```
 
 In CI these come from `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY`
-secrets — see `.github/workflows/deploy-infra.yml`.
+secrets ,  see `.github/workflows/deploy-infra.yml`.
 
 State locking uses `use_lockfile = true` (Terraform ≥1.11, conditional
 write, no DynamoDB needed).
@@ -77,7 +77,7 @@ terraform apply
 - Rate limiting: `period` and `mitigation_timeout` are restricted to `10`
   on Free; `challenge`-type actions aren't available (use `block`).
 - `www.pages.dev` project subdomain can differ from the project name if
-  that name is already taken globally — check the dashboard.
+  that name is already taken globally ,  check the dashboard.
 - Cloudflare Pages needs at least one manual deploy from the dashboard
   before the API will accept Pages calls for a brand-new account.
 

@@ -10,6 +10,6 @@ variable "cloudflare_account_id" {
 }
 
 variable "pages_dev_subdomain" {
-  description = "The actual <x>.pages.dev subdomain Cloudflare assigned to the project (without .pages.dev). Can differ from the project name if that name was already taken globally — check Workers & Pages > project > Custom domains in the dashboard for the real value."
+  description = "The actual <x>.pages.dev subdomain Cloudflare assigned to the project (without .pages.dev). Can differ from the project name if that name was already taken globally ,  check Workers & Pages > project > Custom domains in the dashboard for the real value."
   type        = string
 }

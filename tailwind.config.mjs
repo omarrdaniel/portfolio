@@ -15,8 +15,8 @@ export default {
           DEFAULT: '#E8EDF4', // primary text
           muted: '#8B9AB3', // secondary text
         },
-        signal: '#E8A33D', // amber — CTAs, alerts, active states
-        trace: '#3D8FA8', // cool teal — diagram lines, links
+        signal: '#E8A33D', // amber ,  CTAs, alerts, active states
+        trace: '#3D8FA8', // cool teal ,  diagram lines, links
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'sans-serif'],

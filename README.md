@@ -1,6 +1,6 @@
 # omar-portfolio
 
-Personal site and case study archive — Cloud & Application Security.
+Personal site and case study archive ,  Cloud & Application Security.
 Built and shipped the same way I'd approach a client engagement:
 infrastructure as code, a gated CI/CD pipeline, and edge security
 controls that are actually verified post-deploy, not just configured
@@ -12,7 +12,7 @@ once and assumed to work.
 
 | Layer | Choice |
 |---|---|
-| Frontend | [Astro](https://astro.build) + Tailwind v4 — static output, no client-side JS by default |
+| Frontend | [Astro](https://astro.build) + Tailwind v4 ,  static output, no client-side JS by default |
 | Hosting | Cloudflare Pages |
 | DNS / WAF / Rate limiting | Cloudflare, managed as code via Terraform |
 | State backend | Cloudflare R2 (S3-compatible), native lockfile locking |
@@ -20,7 +20,7 @@ once and assumed to work.
 
 ## Security engineering in this repo
 
-- **WAF & rate limiting as code** (`terraform/waf.tf`, `terraform/rate_limit.tf`) — custom ruleset
+- **WAF & rate limiting as code** (`terraform/waf.tf`, `terraform/rate_limit.tf`) ,  custom ruleset
   blocking on Cloudflare threat score, rate-based blocking on abnormal request rates
 - **security.txt** (RFC 9116) at `/.well-known/security.txt` for coordinated
   vulnerability disclosure
@@ -39,7 +39,7 @@ once and assumed to work.
 
 ```
 src/
-  content/projects/    case studies as Markdown — drop a file, get a page
+  content/projects/    case studies as Markdown ,  drop a file, get a page
   components/          Astro components
   pages/                routes (home + dynamic /projects/[slug])
 terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting, www redirect
@@ -53,7 +53,7 @@ terraform/              Cloudflare infra: DNS, Pages project, WAF, rate limiting
 
 New Markdown file in `src/content/projects/`, frontmatter per the schema
 in `src/content.config.ts`. Picked up automatically by the listing and
-the dynamic route — no component changes needed.
+the dynamic route ,  no component changes needed.
 
 Client names are withheld under confidentiality agreements; sector,
 scale, and specific identifying detail are generalized so no single
@@ -71,12 +71,12 @@ npm run build
 
 Three workflows, each scoped to what actually needs to run:
 
-- **`ci.yml`** — every PR and push to main: type-check, build, CodeQL,
+- **`ci.yml`** ,  every PR and push to main: type-check, build, CodeQL,
   gitleaks, npm audit, tfsec. Any failure blocks merge.
-- **`deploy-infra.yml`** — always runs a `terraform plan` after CI
+- **`deploy-infra.yml`** ,  always runs a `terraform plan` after CI
   passes; `apply` only triggers, behind manual approval on the `infra`
   environment, if the plan actually detected changes.
-- **`deploy-site.yml`** — runs after CI passes, deploys the built site
+- **`deploy-site.yml`** ,  runs after CI passes, deploys the built site
   to Cloudflare Pages on every push, then runs a ZAP baseline scan and
   checks the expected security headers are present on the live response.
 
